@@ -19,8 +19,10 @@
     <div v-if="selectedTab === 'members'">
       <ul>
         <li>회원정보 수정</li>
-        <li>추천인 조직도</li>
+        <li @click="showOrgChart = true">추천인 조직도</li>
       </ul>
+      <!-- 추천인 조직도 컴포넌트 -->
+      <OrgChart v-if="showOrgChart" />
     </div>
 
     <div v-if="selectedTab === 'orders'">
@@ -46,13 +48,18 @@
 
 <script>
 import axios from 'axios';
+import OrgChart from '@/components/OrgChart.vue';  // OrgChart 컴포넌트 임포트
 
 export default {
-  name : 'MainPage',
+  name: 'MainPage',
+  components: {
+    OrgChart,  // components에서 OrgChart 컴포넌트 등록
+  },
   data() {
     return {
       points: 0, // 초기 포인트 값
       selectedTab: 'members',
+      showOrgChart: false, // 추천인 조직도 표시 여부
     };
   },
   created() {
@@ -60,6 +67,10 @@ export default {
     this.fetchUserPoints();
   },
   methods: {
+    selectTab(tab) {
+      this.selectedTab = tab;
+      this.showOrgChart = false; // 탭 전환 시 조직도 초기화
+    },
     // 서버에서 포인트를 받아오는 API 호출
     async fetchUserPoints() {
       try {
@@ -72,10 +83,6 @@ export default {
       } catch (error) {
         console.error('포인트를 가져오는 데 실패했습니다', error);
       }
-    },
-
-    selectTab(tab) {
-      this.selectedTab = tab;
     },
   },
 };
