@@ -21,7 +21,6 @@
         <li>회원정보 수정</li>
         <li @click="showOrgChart = true">추천인 조직도</li>
       </ul>
-      <!-- 추천인 조직도 컴포넌트 -->
       <OrgChart v-if="showOrgChart" />
     </div>
 
@@ -43,6 +42,20 @@
         <li>공지사항</li>
       </ul>
     </div>
+
+    <!-- 상품 목록 (탭에 관계 없이 항상 아래에 표시) -->
+    <h2>상품 목록</h2>
+    <div v-if="products.length > 0" class="product-list">
+      <div v-for="product in products" :key="product.id" class="product-item">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>가격: {{ product.price }}원</p>
+        <p>재고: {{ product.stock }}개</p>
+      </div>
+    </div>
+    <div v-else>
+      <p>상품이 없습니다.</p>
+    </div>
   </div>
 </template>
 
@@ -58,19 +71,18 @@ export default {
   data() {
     return {
       points: 0, // 초기 포인트 값
-      selectedTab: 'members',
+      selectedTab: 'members', // 초기 탭 선택
       showOrgChart: false, // 추천인 조직도 표시 여부
+      products: [], // 상품 목록 데이터
     };
   },
   created() {
     // 로그인 후 사용자 포인트 값을 가져옵니다
     this.fetchUserPoints();
+    // 상품 목록을 가져옵니다
+    this.fetchProducts();
   },
   methods: {
-    selectTab(tab) {
-      this.selectedTab = tab;
-      this.showOrgChart = false; // 탭 전환 시 조직도 초기화
-    },
     // 서버에서 포인트를 받아오는 API 호출
     async fetchUserPoints() {
       try {
@@ -83,6 +95,20 @@ export default {
       } catch (error) {
         console.error('포인트를 가져오는 데 실패했습니다', error);
       }
+    },
+    // 서버에서 상품 목록을 가져오는 API 호출
+    async fetchProducts() {
+      try {
+        const response = await axios.get('http://localhost:3000/products'); // 상품 목록 API 호출
+        this.products = response.data; // 서버에서 가져온 상품 목록
+      } catch (error) {
+        console.error('상품 목록을 가져오는 데 실패했습니다', error);
+      }
+    },
+    // 탭 선택 시, 해당 탭을 활성화하는 메서드
+    selectTab(tab) {
+      this.selectedTab = tab;
+      this.showOrgChart = false; // 탭 전환 시 조직도 초기화
     },
   },
 };
@@ -105,5 +131,41 @@ ul {
 
 ul li {
   padding: 5px 0;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+h3 {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+p {
+  margin: 5px 0;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap; /* 화면 크기에 맞춰 줄 바꿈 */
+  gap: 20px; /* 아이템 간격 */
+}
+
+.product-item {
+  width: 220px; /* 각 상품의 너비 */
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.product-item h3 {
+  font-size: 1.1em;
+}
+
+.product-item p {
+  font-size: 0.9em;
 }
 </style>

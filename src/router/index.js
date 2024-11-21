@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import MainPage from '../views/MainPage.vue'
+import ProductPage from '../views/ProductPage.vue';
+
 
 const routes = [
   {
@@ -26,6 +28,11 @@ const routes = [
     name: 'MainPage',
     component: MainPage,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/products',
+    name: 'ProductPage',
+    component: ProductPage
   }
 ]
 

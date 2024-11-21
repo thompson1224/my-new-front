@@ -45,33 +45,35 @@ export default {
   },
   methods: {
     drawChart() {
-  google.charts.load('current', { packages: ['orgchart'] });
-  google.charts.setOnLoadCallback(() => {
-    const data = new google.visualization.DataTable();
-    data.addColumn('string', 'Name');
-    data.addColumn('string', 'Manager');
-    data.addColumn('string', 'ToolTip');
+    google.charts.load('current', { packages: ['orgchart'] });
+    google.charts.setOnLoadCallback(() => {
+        const data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
 
-    console.log('Hierarchy Data:', this.hierarchyData); // API에서 받은 데이터 확인
+        console.log('Hierarchy Data:', this.hierarchyData);  // API에서 받은 데이터 확인
 
-    // API 데이터를 Google Charts 형식으로 변환
-    this.hierarchyData.forEach((user) => {
-      // 각 사용자에서 필요한 값들을 추출
-      const userName = user.user_name || '이름 없음';  // 이름이 없으면 '이름 없음'으로 처리
-      const recommenderName = user.recommender_name === '없음' ? null : user.recommender_name || '추천인 없음'; // '없음'일 경우 null 처리
-      const userLevel = user.user_level || '레벨 없음';  // 유저 레벨이 없으면 '레벨 없음'
-      const joinDate = user.join_date || '가입일 없음';  // 가입 날짜가 없으면 '가입일 없음'
+        if (Array.isArray(this.hierarchyData) && this.hierarchyData.length > 0) {
+            const convertToChartData = (node, parentName = null) => {
+                const name = node.user_name || '이름 없음';
+                const tooltip = `${node.join_date || '가입일 없음'}`;
+                data.addRow([name, parentName, tooltip]);
 
-      console.log('Adding row:', userName, recommenderName, `${userLevel} (${joinDate})`); // 추가되는 행 확인
+                // 하위 노드 처리
+                node.children.forEach(child => convertToChartData(child, name));
+            };
 
-      // Google Charts 데이터에 행 추가
-      data.addRow([userName, recommenderName, `${userLevel} (${joinDate})`]);
+            // 최상위 루트 노드부터 데이터 변환
+            this.hierarchyData.forEach(root => convertToChartData(root));
+
+            // Google Chart로 그리기
+            const chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+            chart.draw(data, { allowHtml: true });
+        } else {
+            console.error('계층 데이터가 비어 있습니다.');
+        }
     });
-
-    // Google Chart로 그리기
-    const chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-    chart.draw(data, { allowHtml: true });
-  });
 },
   },
 };
