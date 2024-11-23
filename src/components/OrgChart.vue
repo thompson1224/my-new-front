@@ -56,7 +56,7 @@ export default {
 
         if (Array.isArray(this.hierarchyData) && this.hierarchyData.length > 0) {
             const convertToChartData = (node, parentName = null) => {
-                const name = node.user_name || '이름 없음';
+                const name = node.userid || '이름 없음';
                 const tooltip = `${node.join_date || '가입일 없음'}`;
                 data.addRow([name, parentName, tooltip]);
 
