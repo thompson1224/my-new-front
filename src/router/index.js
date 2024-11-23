@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import MainPage from '../views/MainPage.vue'
 import ProductPage from '../views/ProductPage.vue';
+import ProductDetail from '../views/ProductDetail.vue';
 
 
 const routes = [
@@ -33,7 +34,13 @@ const routes = [
     path: '/products',
     name: 'ProductPage',
     component: ProductPage
-  }
+  },
+  {
+    path: '/product/:id', // 상품 상세 페이지 경로
+    name: 'ProductDetail',
+    component: ProductDetail,
+    props: true, // URL 매개변수를 컴포넌트로 전달
+  },
 ]
 
 const router = createRouter({
