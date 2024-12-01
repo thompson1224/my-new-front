@@ -6,7 +6,7 @@
     <div>
       <button>
         <router-link to="/signup">
-          회원가입 화면 보기
+          회원가입
         </router-link>
       </button>
     </div>
@@ -15,7 +15,7 @@
     <div>
       <h2>로그인</h2>
       <form @submit.prevent="login">
-        <input v-model="email" placeholder="이메일" required />
+        <input v-model="userid" placeholder="아이디" required />
         <input v-model="password" type="password" placeholder="비밀번호" required />
         <button type="submit">로그인</button>
       </form>
@@ -30,7 +30,7 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      email: '',
+      userid: '',
       password: '',
     };
   },
@@ -38,7 +38,7 @@ export default {
     async login() {
       try {
         const response = await axios.post('https://backend-web.fly.dev/login', {
-          email: this.email,
+          userid: this.userid,
           password: this.password,
         });
         localStorage.setItem('token', response.data.token);  // 로그인 성공 시 토큰 저장
