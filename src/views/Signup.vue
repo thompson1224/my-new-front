@@ -7,6 +7,9 @@
         <input v-model="userid" placeholder="userid" required />
       </div>
       <div class="input-container">
+        <input v-model="username" placeholder="Email" required />
+      </div>
+      <div class="input-container">
         <input v-model="email" placeholder="Email" required />
       </div>
       <div class="input-container">
@@ -28,6 +31,7 @@ export default {
   data() {
     return {
       userid: '',
+      username: '',
       email: '',
       password: '',
       recommenderId: '',  // 추천인 ID 필드 추가
@@ -38,6 +42,7 @@ export default {
       try {
         const data = {
           userid: this.userid,
+          username: this.username,
           email: this.email,
           password: this.password,
         };
