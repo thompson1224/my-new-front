@@ -4,7 +4,7 @@
     <form @submit.prevent="signup">
       <!-- 각 input을 div로 감싸서 세로 정렬 -->
       <div class="input-container">
-        <input v-model="username" placeholder="Username" required />
+        <input v-model="userid" placeholder="userid" required />
       </div>
       <div class="input-container">
         <input v-model="email" placeholder="Email" required />
@@ -27,7 +27,7 @@ export default {
   name: 'UserSignup',
   data() {
     return {
-      username: '',
+      userid: '',
       email: '',
       password: '',
       recommenderId: '',  // 추천인 ID 필드 추가
@@ -37,12 +37,12 @@ export default {
     async signup() {
       try {
         const data = {
-          username: this.username,
+          userid: this.userid,
           email: this.email,
           password: this.password,
         };
         if (this.recommenderId) {
-          data.recommender_id = this.recommenderId;
+          data.recommenderid = this.recommenderId;
         }
 
         await axios.post('https://backend-web.fly.dev/signup', data);
