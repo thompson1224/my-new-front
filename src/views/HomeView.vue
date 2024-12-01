@@ -37,7 +37,7 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await axios.post('http://localhost:3000/login', {
+        const response = await axios.post('https://backend-web.fly.dev/login', {
           email: this.email,
           password: this.password,
         });

@@ -59,7 +59,7 @@ export default {
   methods: {
     async addProduct() {
       try {
-        const response = await fetch('http://localhost:3000/add-product', {
+        const response = await fetch('https://backend-web.fly.dev/add-product', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export default {
     },
     async getProducts() {
       try {
-        const response = await fetch('http://localhost:3000/products');
+        const response = await fetch('https://backend-web.fly.dev/products');
         const data = await response.json();
         this.products = data;
       } catch (error) {

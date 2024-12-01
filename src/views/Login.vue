@@ -42,7 +42,7 @@ export default {
     console.log(this.email, this.password)
     console.log('로그인 요청 시작'); // 확인용 로그 추가
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post('https://backend-web.fly.dev/login', {
         email: this.email,
         password: this.password,
       });

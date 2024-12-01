@@ -98,7 +98,7 @@ export default {
   methods: {
     async fetchUserPoints() {
       try {
-        const response = await axios.get('http://localhost:3000/user/points', {
+        const response = await axios.get('https://backend-web.fly.dev/user/points', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -110,7 +110,7 @@ export default {
     },
     async fetchProducts() {
       try {
-        const response = await axios.get('http://localhost:3000/products');
+        const response = await axios.get('https://backend-web.fly.dev/products');
         this.products = response.data;
       } catch (error) {
         console.error('상품 목록을 가져오는 데 실패했습니다', error);

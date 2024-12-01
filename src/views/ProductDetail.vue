@@ -40,7 +40,7 @@ export default {
     async fetchProduct() {
       const productId = this.$route.params.id; // URL에서 상품 ID 가져오기
       try {
-        const response = await axios.get(`http://localhost:3000/products/${productId}`);
+        const response = await axios.get(`https://backend-web.fly.dev/products/${productId}`);
         this.product = response.data;
       } catch (error) {
         console.error('상품 정보를 가져오는 데 실패했습니다:', error);
@@ -50,7 +50,7 @@ export default {
     try {
       const token = localStorage.getItem('token'); // 저장된 토큰 가져오기
       const response = await axios.post(
-        'http://localhost:3000/purchase',
+        'https://backend-web.fly.dev/purchase',
         {
           productId: this.product.id,
           quantity: this.quantity,

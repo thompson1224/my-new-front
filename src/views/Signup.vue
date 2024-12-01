@@ -45,7 +45,7 @@ export default {
           data.recommender_id = this.recommenderId;
         }
 
-        await axios.post('http://localhost:3000/signup', data);
+        await axios.post('https://backend-web.fly.dev/signup', data);
         alert('회원가입 성공');
       } catch (error) {
         alert('회원가입 실패');

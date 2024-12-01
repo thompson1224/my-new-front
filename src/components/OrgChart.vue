@@ -19,7 +19,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await axios.get('http://localhost:3000/api/users/hierarchy', {
+      const response = await axios.get('https://backend-web.fly.dev/api/users/hierarchy', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // 인증 토큰 전달
         },
