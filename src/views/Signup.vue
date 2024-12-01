@@ -7,7 +7,7 @@
         <input v-model="userid" placeholder="userid" required />
       </div>
       <div class="input-container">
-        <input v-model="username" placeholder="Email" required />
+        <input v-model="username" placeholder="username" required />
       </div>
       <div class="input-container">
         <input v-model="email" placeholder="Email" required />
