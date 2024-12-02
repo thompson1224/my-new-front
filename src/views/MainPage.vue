@@ -1,43 +1,24 @@
 <!-- MainPage.vue -->
 <template>
   <div class="main-container">
-    <div class="sidebar">
-      <div class="user-profile">
-        <img src="/api/placeholder/100/100" alt="Profile" class="profile-image" />
-        <div class="user-info">
-          <h2>홍길동님</h2>
-          <div class="points-badge">
-            <i class="icon-coins"></i>
-            <span>{{ points }} 포인트</span>
-          </div>
-        </div>
+    <nav class="top-nav">
+      <div 
+        v-for="tab in tabs" 
+        :key="tab.value" 
+        :class="['nav-item', { 'active': selectedTab === tab.value }]"
+        @click="selectTab(tab.value)"
+      >
+        {{ tab.label }}
       </div>
-
-      <nav class="main-nav">
-        <div 
-          v-for="tab in tabs" 
-          :key="tab.value" 
-          :class="['nav-item', { 'active': selectedTab === tab.value }]"
-          @click="selectTab(tab.value)"
-        >
-          <span>{{ tab.label }}</span>
-        </div>
-      </nav>
-    </div>
+    </nav>
 
     <div class="content-area">
-      <div class="content-header">
-        <h1>{{ tabs.find(t => t.value === selectedTab).label }}</h1>
-      </div>
-
       <div v-if="selectedTab === 'members'" class="content-section">
         <div class="grid-menu">
           <div class="menu-card" @click="showOrgChart = true">
-            <i class="icon-network"></i>
             <span>추천인 조직도</span>
           </div>
           <div class="menu-card">
-            <i class="icon-user-edit"></i>
             <span>회원정보 수정</span>
           </div>
         </div>
@@ -47,26 +28,22 @@
       <div v-if="selectedTab === 'orders'" class="content-section">
         <div class="grid-menu">
           <router-link to="/add-product" class="menu-card">
-            <i class="icon-plus"></i>
             <span>상품 추가</span>
           </router-link>
           <div class="menu-card">
-            <i class="icon-shopping-cart"></i>
             <span>주문하기</span>
           </div>
           <router-link to="/mypurchase" class="menu-card">
-            <i class="icon-list"></i>
             <span>나의 주문</span>
           </router-link>
           <router-link to="/purchase-history" class="menu-card">
-            <i class="icon-history"></i>
             <span>주문 내역</span>
           </router-link>
         </div>
       </div>
 
       <div class="product-grid">
-        <h2>추천 상품</h2>
+        <h2>상품 목록</h2>
         <div v-if="products.length > 0" class="products">
           <div 
             v-for="product in products" 
@@ -74,13 +51,6 @@
             class="product-card"
           >
             <router-link :to="{ name: 'ProductDetail', params: { id: product.id }}">
-              <div class="product-image-container">
-                <img 
-                  :src="product.image || '/api/placeholder/250/250'" 
-                  :alt="product.name" 
-                  class="product-image"
-                />
-              </div>
               <div class="product-details">
                 <h3>{{ product.name }}</h3>
                 <p class="product-price">{{ product.price.toLocaleString() }}원</p>
@@ -93,6 +63,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -159,68 +130,38 @@ export default {
 }
 
 .main-container {
-  display: flex;
   background-color: var(--background-color);
   min-height: 100vh;
 }
 
-.sidebar {
-  width: 250px;
+.top-nav {
+  display: flex;
+  justify-content: center;
   background-color: white;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.user-profile {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.profile-image {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.points-badge {
-  display: inline-flex;
-  align-items: center;
-  background-color: #e1f5fe;
-  color: var(--primary-color);
-  padding: 5px 10px;
-  border-radius: 20px;
-}
-
-.main-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item {
-  padding: 12px 15px;
-  border-radius: 8px;
+  padding: 15px 25px;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
 }
 
 .nav-item:hover, .nav-item.active {
-  background-color: var(--primary-color);
-  color: white;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
 }
 
 .content-area {
-  flex-grow: 1;
   padding: 30px;
-  background-color: var(--background-color);
 }
 
 .grid-menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
+  margin-bottom: 30px;
 }
 
 .menu-card {
@@ -259,19 +200,9 @@ export default {
   transform: scale(1.05);
 }
 
-.product-image-container {
-  aspect-ratio: 1/1;
-  overflow: hidden;
-}
-
-.product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .product-details {
   padding: 15px;
+  text-align: center;
 }
 
 .product-price {
