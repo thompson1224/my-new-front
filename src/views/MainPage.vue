@@ -30,6 +30,10 @@
 
     <div v-if="selectedTab === 'orders'" class="submenu">
       <ul>
+        <!-- 상품 추가 버튼 -->
+        <li>
+          <router-link to="/add-product">상품 추가</router-link>
+        </li>
         <li>주문하기</li>
         <li>주문내역</li>
       </ul>
