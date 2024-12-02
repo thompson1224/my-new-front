@@ -47,7 +47,7 @@ export default {
         endDate: '',
       },
       purchaseHistory: [], // 구매 내역
-      API_BASE_URL: 'https://backend-web.fly.dev', // 실제 API 서버 URL로 변경
+      API_BASE_URL: 'https://backend-web.fly.dev/', // 실제 API 서버 URL로 변경
     };
   },
   methods: {
