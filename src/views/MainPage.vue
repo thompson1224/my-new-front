@@ -35,7 +35,10 @@
           <router-link to="/add-product">상품 추가</router-link>
         </li>
         <li>주문하기</li>
-        <li>주문내역</li>
+        <li>나의 주문</li>
+        <li>
+          <router-link to="/purchase-history">주문 내역</router-link>
+        </li>
       </ul>
     </div>
 
