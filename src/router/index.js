@@ -6,6 +6,7 @@ import Signup from '../views/Signup.vue'
 import MainPage from '../views/MainPage.vue'
 import ProductPage from '../views/ProductPage.vue';
 import ProductDetail from '../views/ProductDetail.vue';
+import AddProductPage from '../components/AddProductPage.vue'; // 상품 추가 페이지 컴포넌트 임포트
 
 
 const routes = [
@@ -40,6 +41,11 @@ const routes = [
     name: 'ProductDetail',
     component: ProductDetail,
     props: true, // URL 매개변수를 컴포넌트로 전달
+  },
+  {
+    path: '/add-product',
+    name: 'AddProductPage',
+    component: AddProductPage, // 상품 추가 페이지 경로 등록
   },
 ]
 
