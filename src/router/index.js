@@ -6,7 +6,7 @@ import Signup from '../views/Signup.vue'
 import MainPage from '../views/MainPage.vue'
 import ProductPage from '../views/ProductPage.vue';
 import ProductDetail from '../views/ProductDetail.vue';
-import AddProductPage from '../components/AddProductPage.vue'; // 상품 추가 페이지 컴포넌트 임포트
+import AddProductPage from '@/components/AddProduct.vue'; // 상품 추가 페이지 컴포넌트 임포트
 
 
 const routes = [
