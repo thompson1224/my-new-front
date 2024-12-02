@@ -61,10 +61,11 @@ export default {
           endDate,
         }).toString();
 
-        const response = await fetch(`${this.API_BASE_URL}purchase-history?${query}`);
-        headers: {
+        const response = await fetch(`${this.API_BASE_URL}purchase-history?${query}`,{
+          headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
+        }); 
         const data = await response.json();
 
         if (response.ok) {
