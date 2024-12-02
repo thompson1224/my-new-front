@@ -41,8 +41,36 @@
 </template>
 
 <script>
-// [Keep your existing script, no changes needed]
-</script>
+import axios from 'axios';
+
+export default {
+  name: 'HomeView',
+  data() {
+    return {
+      userid: '',
+      password: '',
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post('https://backend-web.fly.dev/login', {
+          userid: this.userid,
+          password: this.password,
+        });
+        localStorage.setItem('token', response.data.token);  // 로그인 성공 시 토큰 저장
+
+        // 리디렉션 추가
+        this.$router.push({ name: 'MainPage' });
+
+        alert('로그인 성공');
+      } catch (error) {
+        console.error(error);
+        alert('로그인 실패');
+      }
+    },
+  },
+};</script>
 
 <style scoped>
 .login-container {

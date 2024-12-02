@@ -95,8 +95,59 @@
 </template>
 
 <script>
-// [Keep your existing script, no changes needed]
-</script>
+import axios from 'axios';
+import OrgChart from '@/components/OrgChart.vue';
+
+export default {
+  name: 'MainPage',
+  components: {
+    OrgChart,
+  },
+  data() {
+    return {
+      points: 0,
+      selectedTab: 'members',
+      showOrgChart: false,
+      products: [],
+      tabs: [
+        { label: '회원 관리', value: 'members' },
+        { label: '주문 관리', value: 'orders' },
+        { label: '포인트 관리', value: 'points' },
+        { label: '기타 관리', value: 'others' },
+      ],
+    };
+  },
+  created() {
+    this.fetchUserPoints();
+    this.fetchProducts();
+  },
+  methods: {
+    async fetchUserPoints() {
+      try {
+        const response = await axios.get('https://backend-web.fly.dev/user/points', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        this.points = response.data.points;
+      } catch (error) {
+        console.error('포인트를 가져오는 데 실패했습니다', error);
+      }
+    },
+    async fetchProducts() {
+      try {
+        const response = await axios.get('https://backend-web.fly.dev/products');
+        this.products = response.data;
+      } catch (error) {
+        console.error('상품 목록을 가져오는 데 실패했습니다', error);
+      }
+    },
+    selectTab(tab) {
+      this.selectedTab = tab;
+      this.showOrgChart = false;
+    },
+  },
+};</script>
 
 <style scoped>
 :root {
