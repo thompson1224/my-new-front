@@ -7,6 +7,7 @@ import MainPage from '../views/MainPage.vue'
 import ProductPage from '../views/ProductPage.vue';
 import ProductDetail from '../views/ProductDetail.vue';
 import AddProductPage from '@/components/AddProduct.vue'; // 상품 추가 페이지 컴포넌트 임포트
+import PurchaseHistory from '../views/PurchaseHistory.vue';
 
 
 const routes = [
@@ -46,6 +47,11 @@ const routes = [
     path: '/add-product',
     name: 'AddProductPage',
     component: AddProductPage, // 상품 추가 페이지 경로 등록
+  },
+  {
+    path: '/purchase-history',
+    name: 'PurchaseHistory',
+    component: PurchaseHistory
   },
 ]
 
